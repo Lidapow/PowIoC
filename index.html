@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>PowIoC by Lidapow</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>PowIoC</h1>
+        <p>An Inversion of Control for Unity3D</p>
+        <p class="view"><a href="https://github.com/Lidapow/PowIoC">View the Project on GitHub <small>Lidapow/PowIoC</small></a></p>
+        <ul>
+          <li><a href="https://github.com/Lidapow/PowIoC/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Lidapow/PowIoC/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Lidapow/PowIoC">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="powioc" class="anchor" href="#powioc" aria-hidden="true"><span class="octicon octicon-link"></span></a>PowIoC</h1>
+
+<p>An Inversion of Control (Dependency Injection) for Unity3D.
+This library utilize ScriptableObject of Unity3D to descript mapping relation.</p>
+
+<p>The main purpose is no need to recompile source code, when there just have some dependency changed.</p>
+
+<p>Following snippet is the dependency settings, which stored in a asset file.
+You can edit it in Inspector window, even in a text editor.</p>
+
+<p>Due to the binding data isn't source code, so the data also can be changed, even your application was built.</p>
+
+<pre><code>  bind:
+  - bind: SomeData
+    to: SomeData
+    scope: 
+    note: 
+  - bind: ICommand
+    to: CommandA
+    scope: PurposeA
+    note: 
+  - bind: ICommand
+    to: CommandB
+    scope: PurposeB
+    note: 
+  - bind: ILogger
+    to: UnityLogger
+    scope: 
+    note: 
+</code></pre>
+
+<p>Following code shows how to mark fields which needs inject, and can pass parameter to set the scope and non-singleton.</p>
+
+<pre><code>using UnityEngine;
+using System.Collections;
+using PowIoC;
+
+public class MyComponent : MonoBehaviour {
+    [Inject]
+    SomeData data; 
+
+    [Inject("PurposeA")]
+    ICommand cmdA;
+    [Inject("PurposeB")]
+    ICommand cmdB;
+
+    [Inject(false)]
+    ILogger logger;
+
+    void Awake () {
+        Injector.Inject(this);
+    }
+}
+</code></pre>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/Lidapow">Lidapow</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
