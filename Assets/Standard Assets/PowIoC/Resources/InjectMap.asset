@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c578b7f9eca14c709493497693d1eeb, type: 1}
+  m_Name: InjectMap
+  bind:
+  - bind: IParsable
+    to: DummyParser
+    scope: 
+    note: 
+  - bind: ILogger
+    to: UnityLogger
+    scope: 
+    note: 
+  - bind: ISettingLoader
+    to: SettingLoader
+    scope: 
+    note: 
+  - bind: LoggerFilters
+    to: LoggerFilters
+    scope: 
+    note: 
+  - bind: SomeData
+    to: SomeData
+    scope: 
+    note: 
+  primitive:
+  - fieldPath: LoggerFilters.level
+    fieldValue: 0
+    note: 1 Log, 2 Warning, 3 Error
+  - fieldPath: LoggerFilters.logPattern
+    fieldValue: '[%class] - <%method> %msg'
+    note: 
+  - fieldPath: SettingLoader.settingsFilePath
+    fieldValue: Settings.json
+    note: 
+  primitiveArray:
+  - fieldPath: LoggerFilters.messageFilters
+    fieldValue:
+    - Command\sType\s\d
+    note: Ignore messages
+  - fieldPath: LoggerFilters.classFilters
+    fieldValue:
+    - Injector
+    note: Ignore class
