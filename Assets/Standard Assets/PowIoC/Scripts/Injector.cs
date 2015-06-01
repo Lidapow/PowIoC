@@ -230,7 +230,7 @@ public class Injector : ScriptableObject {
 	}
 
 	public ScriptableObject _New (Type type, string scope = "") {
-		string typeString = Regex.Replace(type.ToString(), "^MobileGameHall\\.Model\\.", "");
+		string typeString = type.ToString();
 		BindMap bindmap = null;
 		ScriptableObject returnSO;
 		if(System.Array.Exists<BindMap>(injectMap.bind, (BindMap b) => b.bind.Equals(typeString) && b.scope.Equals(scope)))
