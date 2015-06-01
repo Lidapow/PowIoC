@@ -10,7 +10,7 @@ You can edit it in Inspector window, even in a text editor.
 
 Due to the binding data isn't source code, so the data also can be changed, even your application was built.
 
-```
+```YAML
   bind:
   - bind: SomeData
     to: SomeData
@@ -32,7 +32,7 @@ Due to the binding data isn't source code, so the data also can be changed, even
 
 Following code shows how to mark fields which needs inject, and can pass parameter to set the scope and non-singleton.
 
-```
+```C#
 using UnityEngine;
 using System.Collections;
 using PowIoC;
