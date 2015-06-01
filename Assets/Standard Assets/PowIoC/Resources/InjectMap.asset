@@ -31,6 +31,14 @@ MonoBehaviour:
     to: SomeData
     scope: 
     note: 
+  - bind: IGUI
+    to: ProfileGUI
+    scope: view
+    note: 
+  - bind: IGUI
+    to: ProfileEditGUI
+    scope: edit
+    note: 
   primitive:
   - fieldPath: LoggerFilters.level
     fieldValue: 0
@@ -40,6 +48,15 @@ MonoBehaviour:
     note: 
   - fieldPath: SettingLoader.settingsFilePath
     fieldValue: Settings.json
+    note: 
+  - fieldPath: SomeData.someStr
+    fieldValue: PowIoC
+    note: 
+  - fieldPath: SomeData.someInt
+    fieldValue: 2
+    note: 
+  - fieldPath: SomeData.someFloat
+    fieldValue: 2.3
     note: 
   primitiveArray:
   - fieldPath: LoggerFilters.messageFilters

@@ -7,6 +7,8 @@ public class SomeComponent : MonoBehaviour {
 	ILogger logger;
 	[Inject]
 	public SomeData data;
+	[Inject("view")] IGUI viewer;
+	[Inject("edit")] IGUI editor;
 
 	void Awake () {
 		Injector.Inject(this);
@@ -14,12 +16,15 @@ public class SomeComponent : MonoBehaviour {
 	}
 
 	void Start () {
-		data.someStr = "Hello";
-		data.someInt = 2;
-		data.someFloat = 3.4f;
+		
 	}
 	
 	void Update () {
 	
+	}
+
+	void OnGUI () {
+		editor.OnGUI();
+		viewer.OnGUI();
 	}
 }
