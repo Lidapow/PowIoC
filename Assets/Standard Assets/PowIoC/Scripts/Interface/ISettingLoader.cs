@@ -1,3 +1,6 @@
-public interface ISettingLoader {
-	string GetSettings ();
+namespace PowIoC 
+{
+	public interface ISettingLoader {
+		string GetSettings ();
+	}
 }

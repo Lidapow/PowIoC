@@ -1,5 +1,5 @@
-// namespace TinyIoC 
-// {
+namespace PowIoC 
+{
 	public interface ILogger {
 		string Context {get; set;}
 		void Log (object message);
@@ -9,4 +9,4 @@
 		void LogWarningFormat (string format, params object[] messages);
 		void LogErrorFormat (string format, params object[] messages);
 	}
-// }
+}
