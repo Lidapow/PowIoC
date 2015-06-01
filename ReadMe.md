@@ -10,6 +10,7 @@ You can edit it in Inspector window, even in a text editor.
 
 Due to the binding data isn't source code, so the data also can be changed, even your application was built.
 
+![Inspector window of InjectMap](https://raw.githubusercontent.com/Lidapow/PowIoC/master/res/img/InspectorOfInjectMap.png)
 ```YAML
   bind:
   - bind: SomeData
