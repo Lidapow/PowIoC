@@ -11,15 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c578b7f9eca14c709493497693d1eeb, type: 1}
   m_Name: InjectMap
   bind:
-  - bind: IParsable
+  - bind: PowIoC.IParsable
     to: DummyParser
     scope: 
     note: 
-  - bind: ILogger
+  - bind: PowIoC.ILogger
     to: UnityLogger
     scope: 
     note: 
-  - bind: ISettingLoader
+  - bind: PowIoC.ISettingLoader
     to: SettingLoader
     scope: 
     note: 
