@@ -40,48 +40,46 @@ You can edit it in Inspector window, even in a text editor.</p>
 
 <p>Due to the binding data isn't source code, so the data also can be changed, even your application was built.</p>
 
-<pre><code>  bind:
-  - bind: SomeData
-    to: SomeData
-    scope: 
-    note: 
-  - bind: ICommand
-    to: CommandA
-    scope: PurposeA
-    note: 
-  - bind: ICommand
-    to: CommandB
-    scope: PurposeB
-    note: 
-  - bind: ILogger
-    to: UnityLogger
-    scope: 
-    note: 
-</code></pre>
+<div class="highlight highlight-YAML"><pre>  <span class="pl-s"><span class="pl-ent">bind:</span></span>
+  <span class="pl-s">- <span class="pl-ent">bind:</span> <span class="pl-s">SomeData</span></span>
+    <span class="pl-s"><span class="pl-ent">to:</span> <span class="pl-s">SomeData</span></span>
+    <span class="pl-s"><span class="pl-ent">scope:</span> </span>
+    <span class="pl-s"><span class="pl-ent">note:</span> </span>
+  <span class="pl-s">- <span class="pl-ent">bind:</span> <span class="pl-s">ICommand</span></span>
+    <span class="pl-s"><span class="pl-ent">to:</span> <span class="pl-s">CommandA</span></span>
+    <span class="pl-s"><span class="pl-ent">scope:</span> <span class="pl-s">PurposeA</span></span>
+    <span class="pl-s"><span class="pl-ent">note:</span> </span>
+  <span class="pl-s">- <span class="pl-ent">bind:</span> <span class="pl-s">ICommand</span></span>
+    <span class="pl-s"><span class="pl-ent">to:</span> <span class="pl-s">CommandB</span></span>
+    <span class="pl-s"><span class="pl-ent">scope:</span> <span class="pl-s">PurposeB</span></span>
+    <span class="pl-s"><span class="pl-ent">note:</span> </span>
+  <span class="pl-s">- <span class="pl-ent">bind:</span> <span class="pl-s">ILogger</span></span>
+    <span class="pl-s"><span class="pl-ent">to:</span> <span class="pl-s">UnityLogger</span></span>
+    <span class="pl-s"><span class="pl-ent">scope:</span> </span>
+    <span class="pl-s"><span class="pl-ent">note:</span> </span></pre></div>
 
 <p>Following code shows how to mark fields which needs inject, and can pass parameter to set the scope and non-singleton.</p>
 
-<pre><code>using UnityEngine;
-using System.Collections;
-using PowIoC;
+<div class="highlight highlight-C#"><pre><span class="pl-k">using</span> UnityEngine;
+<span class="pl-k">using</span> System.Collections;
+<span class="pl-k">using</span> PowIoC;
 
-public class MyComponent : MonoBehaviour {
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">MyComponent</span> : <span class="pl-k">MonoBehaviour</span> {
     [Inject]
     SomeData data; 
 
-    [Inject("PurposeA")]
+    [Inject(<span class="pl-s"><span class="pl-pds">"</span>PurposeA<span class="pl-pds">"</span></span>)]
     ICommand cmdA;
-    [Inject("PurposeB")]
+    [Inject(<span class="pl-s"><span class="pl-pds">"</span>PurposeB<span class="pl-pds">"</span></span>)]
     ICommand cmdB;
 
-    [Inject(false)]
+    [Inject(<span class="pl-c1">false</span>)]
     ILogger logger;
 
-    void Awake () {
-        Injector.Inject(this);
+    <span class="pl-k">void</span> <span class="pl-en">Awake</span> () {
+        Injector.Inject(<span class="pl-c1">this</span>);
     }
-}
-</code></pre>
+}</pre></div>
       </section>
     </div>
     <footer>
