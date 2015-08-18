@@ -11,6 +11,7 @@ public class OtherComponent : MonoBehaviour {
 	void Awake () {
 		Injector.Inject(this);
 		logger.Context = this.GetType().ToString();
+		logger.Log("Hello");
 	}
 	
 	void Update () {

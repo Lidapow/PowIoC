@@ -28,7 +28,7 @@ MonoBehaviour:
     scope: 
     note: 
   - bind: SomeData
-    to: SomeData
+    to: SomeDataMonitor
     scope: 
     note: 
   - bind: IGUI
@@ -52,11 +52,17 @@ MonoBehaviour:
   - fieldPath: SomeData.someStr
     fieldValue: PowIoC
     note: 
-  - fieldPath: SomeData.someInt
-    fieldValue: 2
+  - fieldPath: SomeDataMonitor.someStr
+    fieldValue: PowIoC
     note: 
-  - fieldPath: SomeData.someFloat
-    fieldValue: 2.3
+  - fieldPath: SomeDataRaw.someStr
+    fieldValue: PowIoCRaw
+    note: 
+  - fieldPath: SomeDataMonitor.someInt
+    fieldValue: 51231123
+    note: 
+  - fieldPath: SomeDataMonitor.someFloat
+    fieldValue: 2.5555
     note: 
   primitiveArray:
   - fieldPath: LoggerFilters.messageFilters

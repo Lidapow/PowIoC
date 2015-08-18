@@ -13,6 +13,7 @@ public class SomeComponent : MonoBehaviour {
 	void Awake () {
 		Injector.Inject(this);
 		logger.Context = this.GetType().ToString();
+		logger.Log("Hello");
 	}
 
 	void Start () {
