@@ -14,7 +14,6 @@ public class SettingLoader : ScriptableObject, ISettingLoader {
 	public string GetSettings () {
 		StringBuilder sb = new StringBuilder();
 		string path = filePath ?? Application.dataPath;
-		Debug.Log(path);
 		sb//.Append("file://")
 		  .Append(path)
 		  .Append("/")
