@@ -56,7 +56,7 @@ public class MyComponent : MonoBehaviour {
 }
 ```
 
-For setting value changing, please investigate the `Settings.xml` which placed in Unity project folder (what contains Assets).
+For setting value changing in delopy version, please investigate the `Settings.xml` which placed in Unity project folder (what contains Assets).
 
 Before Injector.Inject called, the value of InjectMap as following.
 ```YAML
