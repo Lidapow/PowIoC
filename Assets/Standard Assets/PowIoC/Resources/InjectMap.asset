@@ -39,7 +39,11 @@ MonoBehaviour:
     to: ProfileEditGUI
     scope: edit
     note: 
-  - bind: ExampleChangedFromXML
+  - bind: ExampleChangedFromXML1
+    to: Oringinal
+    scope: 
+    note: 
+  - bind: ExampleChangedFromXML2
     to: Oringinal
     scope: 
     note: 
@@ -68,7 +72,10 @@ MonoBehaviour:
   - fieldPath: SomeDataMonitor.someFloat
     fieldValue: 2.5555
     note: 
-  - fieldPath: ExampleChangedFromXML
+  - fieldPath: ExampleChangedFromXML1
+    fieldValue: 100
+    note: 
+  - fieldPath: ExampleChangedFromXML2
     fieldValue: 100
     note: 
   primitiveArray:
@@ -80,9 +87,14 @@ MonoBehaviour:
     fieldValue:
     - Injector
     note: Ignore class
-  - fieldPath: ExampleChangedFromXML
+  - fieldPath: ExampleChangedFromXML1
     fieldValue:
     - One
     - Two
     - Three
-    note: Ignore class
+  - fieldPath: ExampleChangedFromXML2
+    fieldValue:
+    - One
+    - Two
+    - Three
+    note: 

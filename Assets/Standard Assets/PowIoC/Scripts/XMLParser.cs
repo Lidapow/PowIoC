@@ -13,22 +13,23 @@ public class XMLParser : ScriptableObject, IParsable {
 
 	[XmlRoot("InjectMap")]
 	public class _InjectMap {
-		[XmlElement("BindMap")]
+		[XmlArray("BindMaps")]
 		public BindMap[] bind;
-		[XmlElement("PrimitiveMap")]
+		[XmlArray("PrimitiveMaps")]
 		public PrimitiveMap[] primitive;
-		[XmlElement("PrimitiveArrayMap")]
+		[XmlArray("PrimitiveArrayMaps")]
 		public PrimitiveArrayMap[] primitiveArray;
 	}
 
 	public T Parse<T> (string rawdata) where T : ScriptableObject {
 		if(first) {logger.Context = this.GetType().ToString(); first = !first; }
+
 		XmlSerializer ser = new XmlSerializer(typeof(_InjectMap));
 		_InjectMap map;
 		using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(rawdata))){
 			map = (_InjectMap)ser.Deserialize(ms);
 		}
-
+		logger.Log(map.bind[0].bind);
 		T ret = ScriptableObject.CreateInstance<T>();
 		int len;
 		foreach(FieldInfo fi in ret.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public)){
