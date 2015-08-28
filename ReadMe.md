@@ -57,3 +57,43 @@ public class MyComponent : MonoBehaviour {
 ```
 
 For setting value changing, please investigate the `Settings.xml` which placed in Unity project folder (what contains Assets).
+
+Before Injector.Inject called, the value of InjectMap as following.
+```YAML
+  bind:
+  - bind: ExampleChangedFromXML
+    to: Oringinal
+    scope: 
+    note: 
+  primitive:
+  - fieldPath: ExampleChangedFromXML
+    fieldValue: 100
+    note: 
+  primitiveArray:
+  - fieldPath: ExampleChangedFromXML
+    fieldValue:
+    - One
+    - Two
+    - Three
+    note: Ignore class
+```
+After Injector.Inject called, the value will changed as following.
+```YAML
+  bind:
+  - bind: ExampleChangedFromXML
+    to: Changed
+    scope: 
+    note: 
+  primitive:
+  - fieldPath: ExampleChangedFromXML
+    fieldValue: 900
+    note: 
+  primitiveArray:
+  - fieldPath: ExampleChangedFromXML
+    fieldValue:
+    - Alpha
+    - Beta
+    - Charlie
+    note: Ignore class
+```
+
