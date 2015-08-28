@@ -54,7 +54,7 @@ MonoBehaviour:
   - fieldPath: LoggerFilters.logPattern
     fieldValue: '[%class] - <%method> %msg'
     note: 
-  - fieldPath: SettingLoader.settingsFilePath
+  - fieldPath: SettingLoader.fileName
     fieldValue: Settings.xml
     note: 
   - fieldPath: SomeData.someStr

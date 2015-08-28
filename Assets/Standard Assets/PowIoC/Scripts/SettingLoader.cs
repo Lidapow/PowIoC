@@ -6,15 +6,19 @@ using PowIoC;
 
 public class SettingLoader : ScriptableObject, ISettingLoader {
 	[Inject(false)]
-	public string settingsFilePath;
+	string fileName;
+	[Inject(false)]
+	string filePath;
 
 	// Use this for initialization
 	public string GetSettings () {
 		StringBuilder sb = new StringBuilder();
+		string path = filePath ?? Application.dataPath;
+		Debug.Log(path);
 		sb//.Append("file://")
-		  .Append(Application.dataPath)
+		  .Append(path)
 		  .Append("/")
-		  .Append(settingsFilePath);
+		  .Append(fileName);
 		return LoadSettingFile (sb.ToString());
 	}
 
