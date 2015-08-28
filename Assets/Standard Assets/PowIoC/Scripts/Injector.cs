@@ -24,6 +24,7 @@ public class Injector : ScriptableObject {
 				_instance = ScriptableObject.CreateInstance<Injector>();
 				_instance.Read();
 				Inject(_instance);
+				_instance.ReadFromLoader();
 			}
 			return _instance;
 		}
@@ -36,7 +37,9 @@ public class Injector : ScriptableObject {
 
 	private void Read () {
 		injectMap = Resources.Load("InjectMap", typeof(InjectMap)) as InjectMap;
+	}
 
+	private void ReadFromLoader () {
 		if(loader != null)
 			_Read(loader.GetSettings());
 	}
@@ -46,6 +49,8 @@ public class Injector : ScriptableObject {
 			return;
 			
 		InjectMap outsideSettings = parser.Parse<InjectMap>(settings);
+		if(outsideSettings == null)
+			return;
 
 		foreach(BindMap bindMapCurr in injectMap.bind){
 			// If there hasn't setting, leave loop.
@@ -91,6 +96,8 @@ public class Injector : ScriptableObject {
 				);
 
 			if(PrimitiveArrayMapNew != null){
+				if(primitiveArrayMapCurr.fieldValue.Length != PrimitiveArrayMapNew.fieldValue.Length);
+					primitiveArrayMapCurr.fieldValue = new string[PrimitiveArrayMapNew.fieldValue.Length];
 				Array.Copy(PrimitiveArrayMapNew.fieldValue, primitiveArrayMapCurr.fieldValue, PrimitiveArrayMapNew.fieldValue.Length);
 			}
 		}

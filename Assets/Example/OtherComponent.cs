@@ -5,7 +5,7 @@ using PowIoC;
 public class OtherComponent : MonoBehaviour {
 	[Inject(false)]
 	ILogger logger;
-	[Inject]
+	[Inject(false)]
 	public SomeData data;
 
 	void Awake () {

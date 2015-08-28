@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: InjectMap
   bind:
   - bind: PowIoC.IParsable
-    to: DummyParser
+    to: XMLParser
     scope: 
     note: 
   - bind: PowIoC.ILogger
@@ -28,7 +28,7 @@ MonoBehaviour:
     scope: 
     note: 
   - bind: SomeData
-    to: SomeDataMonitor
+    to: SomeDataRaw
     scope: 
     note: 
   - bind: IGUI
@@ -39,6 +39,10 @@ MonoBehaviour:
     to: ProfileEditGUI
     scope: edit
     note: 
+  - bind: ExampleChangedFromXML
+    to: Oringinal
+    scope: 
+    note: 
   primitive:
   - fieldPath: LoggerFilters.level
     fieldValue: 0
@@ -47,7 +51,7 @@ MonoBehaviour:
     fieldValue: '[%class] - <%method> %msg'
     note: 
   - fieldPath: SettingLoader.settingsFilePath
-    fieldValue: Settings.json
+    fieldValue: Settings.xml
     note: 
   - fieldPath: SomeData.someStr
     fieldValue: PowIoC
@@ -64,6 +68,9 @@ MonoBehaviour:
   - fieldPath: SomeDataMonitor.someFloat
     fieldValue: 2.5555
     note: 
+  - fieldPath: ExampleChangedFromXML
+    fieldValue: 100
+    note: 
   primitiveArray:
   - fieldPath: LoggerFilters.messageFilters
     fieldValue:
@@ -72,4 +79,10 @@ MonoBehaviour:
   - fieldPath: LoggerFilters.classFilters
     fieldValue:
     - Injector
+    note: Ignore class
+  - fieldPath: ExampleChangedFromXML
+    fieldValue:
+    - One
+    - Two
+    - Three
     note: Ignore class

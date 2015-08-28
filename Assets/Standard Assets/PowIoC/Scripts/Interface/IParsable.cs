@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace PowIoC 
 {
 	public interface IParsable {
-		T Parse<T> (string rawData) where T : new ();
+		T Parse<T> (string rawData) where T : ScriptableObject;
 		string ToRawString (object data);
 	} 
 }

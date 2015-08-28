@@ -9,7 +9,7 @@ public class SomeComponent : MonoBehaviour {
 	public SomeData data;
 	[Inject("view")] IGUI viewer;
 	[Inject("edit")] IGUI editor;
-
+	[Inject] LoggerFilters filters;
 	void Awake () {
 		Injector.Inject(this);
 		logger.Context = this.GetType().ToString();

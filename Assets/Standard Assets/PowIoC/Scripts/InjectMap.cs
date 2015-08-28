@@ -39,6 +39,7 @@ namespace PowIoC
 	public class PrimitiveArrayMap
 	{
 		public string fieldPath = "";
+		[System.Xml.Serialization.XmlArrayItem("value", typeof(string))]
 		public string[] fieldValue;
 		public string note = "";
 	}

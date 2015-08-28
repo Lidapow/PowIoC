@@ -1,0 +1,22 @@
+<InjectMap>
+	<BindMap>
+		<bind>ExampleChangedFromXML</bind>
+		<to>Changed</to>
+		<scope></scope>
+		<note></note>
+	</BindMap>
+	<PrimitiveMap>
+		<fieldPath>ExampleChangedFromXML</fieldPath>
+		<fieldValue>900</fieldValue>
+		<note></note>
+	</PrimitiveMap>
+	<PrimitiveArrayMap>
+		<fieldPath>ExampleChangedFromXML</fieldPath>
+		<fieldValue>
+			<value>Alpha</value>
+			<value>Beta</value>
+			<value>Charlie</value>
+		</fieldValue>
+		<note></note>
+	</PrimitiveArrayMap>
+</InjectMap>
