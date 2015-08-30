@@ -97,7 +97,7 @@ public class Injector : ScriptableObject {
 
 			if(PrimitiveArrayMapNew != null){
 				// Expand size of array, when source array large than destination
-				if(primitiveArrayMapCurr.fieldValue.Length != PrimitiveArrayMapNew.fieldValue.Length);
+				if(primitiveArrayMapCurr.fieldValue.Length != PrimitiveArrayMapNew.fieldValue.Length)
 					primitiveArrayMapCurr.fieldValue = new string[PrimitiveArrayMapNew.fieldValue.Length];
 				Array.Copy(PrimitiveArrayMapNew.fieldValue, primitiveArrayMapCurr.fieldValue, PrimitiveArrayMapNew.fieldValue.Length);
 			}
