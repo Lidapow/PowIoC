@@ -39,12 +39,20 @@ MonoBehaviour:
     to: ProfileEditGUI
     scope: edit
     note: 
+  - bind: AbstractSelectionController
+    to: CoverFlowSelectionController
+    scope: 
+    note: CoverFlowSelectionController | OrbitSelectionController
+  - bind: Selection
+    to: Selection
+    scope: 
+    note: 
   - bind: ExampleChangedFromXML1
-    to: Oringinal
+    to: Original
     scope: 
     note: 
   - bind: ExampleChangedFromXML2
-    to: Oringinal
+    to: Original
     scope: 
     note: 
   primitive:
@@ -72,6 +80,15 @@ MonoBehaviour:
   - fieldPath: SomeDataMonitor.someFloat
     fieldValue: 2.5555
     note: 
+  - fieldPath: OrbitSelectionController.factor
+    fieldValue: 3
+    note: 
+  - fieldPath: OrbitSelectionController.elementsss
+    fieldValue: 4
+    note: 
+  - fieldPath: OrbitSelectionController.distance
+    fieldValue: 5
+    note: 
   - fieldPath: ExampleChangedFromXML1
     fieldValue: 100
     note: 
@@ -89,12 +106,13 @@ MonoBehaviour:
     note: Ignore class
   - fieldPath: ExampleChangedFromXML1
     fieldValue:
-    - One
+    - Ond
     - Two
     - Three
+    note: 
   - fieldPath: ExampleChangedFromXML2
     fieldValue:
-    - One
+    - Ond
     - Two
     - Three
     note: 
