@@ -29,7 +29,7 @@ public class XMLParser : ScriptableObject, IParsable {
 		using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(rawdata))){
 			map = (_InjectMap)ser.Deserialize(ms);
 		}
-		logger.Log(map.bind[0].bind);
+		
 		T ret = ScriptableObject.CreateInstance<T>();
 		int len;
 		foreach(FieldInfo fi in ret.GetType().GetFields(BindingFlags.Instance | BindingFlags.Public)){

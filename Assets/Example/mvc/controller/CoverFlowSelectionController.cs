@@ -26,6 +26,8 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 		distance = distance == 0f ? 7f : distance;
 		children = new GameObject[elements];
 
+		selection.Selected += Clicked;
+
 		for(int i = 0; i < elements; i++){
 			GameObject newCube = null;
 			newCube = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -33,6 +35,7 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 			newCube.name = "Item" + i;
 			newCube.transform.localScale = Vector3.one * 0.5f;
 			newCube.renderer.material.mainTexture = view.games[i];
+			newCube.AddComponent<SelectionItem>();
 			children[i] = newCube;
 			children[i].transform.parent = transform;
 		}
@@ -57,7 +60,6 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 	public override void Update () {
 		if(Input.GetButtonDown("Fire1")){
 			monoBehaviour.StartCoroutine(Job());
-			monoBehaviour.StartCoroutine(CheckClick());
 		}
 	}
 
@@ -96,7 +98,7 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 		float direction = 0f;
 		for(;;){
 			direction = Input.GetAxis("Mouse X") / factor;
-			movement += direction;
+			movement = Mathf.Repeat(movement + direction, 1f);
 			yield return 0;
 			quit = Input.GetButtonUp("Fire1");
 			Setup(movement);
@@ -108,7 +110,7 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 		}
 
 		while(velocity > 0f){
-			movement += direction > 0 ? velocity : -velocity;
+			movement = Mathf.Repeat(movement + (direction > 0 ? velocity : -velocity), 1f);
 			velocity -= Time.deltaTime / factor;
 			Setup(movement);
 			if(Input.GetButtonDown("Fire1"))
@@ -116,5 +118,30 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 			yield return 0;
 		}
 		sliding = false;
+	}
+
+	IEnumerator SmoothDamp () {
+		int index = selection.SelectedIndex, indexPrev = selection.SelectedIndexPrev;
+		int length = view.games.Length;
+		float destination = 1 - (index + length / 2f) / length;
+		float velocity = 0f;
+		float time = 0;
+
+		while(movement != destination){
+			movement = Mathf.SmoothDampAngle(movement * 360, destination * 360, ref velocity, 0.3f) / 360;
+			Setup(movement);
+			yield return 0;
+			if(Mathf.Abs(movement - destination) < 0.001)
+				break;
+			if(index != selection.SelectedIndex)
+				break;
+			if(sliding)
+				break;
+		}
+		movement = Mathf.Repeat(movement, 1f);
+	}
+
+	void Clicked () {
+		monoBehaviour.StartCoroutine(SmoothDamp());
 	}
 }
