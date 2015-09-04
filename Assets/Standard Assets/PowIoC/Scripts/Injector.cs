@@ -30,10 +30,47 @@ public class Injector : ScriptableObject {
 		}
 	}
 	private Dictionary<Type, Dictionary<string, object>> singletonInstances;
-
+#region API
 	public static void Read (string settings) {
 		instance._Read(settings);
 	}
+
+	public static T Get<T> () where T : ScriptableObject {
+		return instance._Get<T>();
+	}
+
+	public static T New<T> () where T : ScriptableObject {
+		return instance._New<T>();
+	}
+
+	public static T Get <T> (Type type, string fieldName) {
+		return instance._Get <T> (type, fieldName);
+	}
+
+	public static ScriptableObject Get (Type type) {
+		return instance._Get(type);
+	}
+
+	public static ScriptableObject Get (Type type, string scope) {
+		return instance._Get(type, scope);
+	}
+
+	public static ScriptableObject New (Type type) {
+		return instance._New(type);
+	}
+
+	public static ScriptableObject New (Type type, string scope) {
+		return instance._New(type, scope);
+	}
+
+	public static void Release () {
+		instance.Dispose();
+	}
+
+	public static void Inject (object target) {
+		instance._Inject(target);
+	}
+#endregion API
 
 	private void Read () {
 		injectMap = Resources.Load("InjectMap", typeof(InjectMap)) as InjectMap;
@@ -44,7 +81,7 @@ public class Injector : ScriptableObject {
 			_Read(loader.GetSettings());
 	}
 
-	public void _Read (string settings) {
+	private void _Read (string settings) {
 		if(string.IsNullOrEmpty(settings))
 			return;
 			
@@ -117,30 +154,6 @@ public class Injector : ScriptableObject {
 		singletonInstances = null;
 	}
 
-	public static T Get<T> () where T : ScriptableObject {
-		return instance._Get<T>();
-	}
-
-	public static T New<T> () where T : ScriptableObject {
-		return instance._New<T>();
-	}
-
-	public static ScriptableObject New (Type type) {
-		return instance._New(type);
-	}
-
-	public static ScriptableObject New (Type type, string scope) {
-		return instance._New(type, scope);
-	}
-
-	public static ScriptableObject Get (Type type) {
-		return instance._Get(type);
-	}
-
-	public static ScriptableObject Get (Type type, string scope) {
-		return instance._Get(type, scope);
-	}
-
 	/// <summary>
 	/// Inject instance to field what noted with Inject attribute
 	/// </summary>
@@ -160,11 +173,8 @@ public class Injector : ScriptableObject {
 	///		public ICommand cmdSecond;
 	/// </code>
 	/// </example>
-	public static T Get <T> (Type type, string fieldName) {
-		return instance._Get <T> (type, fieldName);
-	}
 
-	public T _Get <T> (Type type, string fieldName) {
+	private T _Get <T> (Type type, string fieldName) {
 		PrimitiveMap map = Array.Find<PrimitiveMap>(injectMap.primitive, (x) => 
 			x.fieldPath.Equals(string.Format("{0}.{1}", type.ToString(), fieldName)));	
 
@@ -177,7 +187,7 @@ public class Injector : ScriptableObject {
 		}
 	}
 
-	public T[] _GetArray<T> (Type type, string fieldName) {
+	private T[] _GetArray<T> (Type type, string fieldName) {
 		PrimitiveArrayMap map = Array.Find<PrimitiveArrayMap>(injectMap.primitiveArray, (x) =>
 			x.fieldPath.Equals(string.Format("{0}.{1}", type.ToString(), fieldName)));
 
@@ -194,7 +204,7 @@ public class Injector : ScriptableObject {
 		}
 	}
 
-	public T _Get<T> (string scope = "") where T : ScriptableObject {
+	private T _Get<T> (string scope = "") where T : ScriptableObject {
 		T t;
 		Type type = typeof(T);
 		if(!singletonInstances.ContainsKey(type)){
@@ -210,7 +220,7 @@ public class Injector : ScriptableObject {
 		return t;
 	}
 
-	public ScriptableObject _Get (Type type, string scope = "") {
+	private ScriptableObject _Get (Type type, string scope = "") {
 		//TODO scope singleton
 		ScriptableObject t;
 		if(!singletonInstances.ContainsKey(type)){
@@ -225,19 +235,16 @@ public class Injector : ScriptableObject {
 		return t;
 	}
 
-	public static void Release () {
-		instance.Dispose();
-	}
 
-	public void Dispose () {
+	private void Dispose () {
 		GC.SuppressFinalize(this);
 	}
 
-	public T _New<T> () where T : ScriptableObject {
+	private T _New<T> () where T : ScriptableObject {
 		return ScriptableObject.CreateInstance<T>();
 	}
 
-	public ScriptableObject _New (Type type, string scope = "") {
+	private ScriptableObject _New (Type type, string scope = "") {
 		string typeString = type.ToString();
 		BindMap bindmap = null;
 		ScriptableObject returnSO;
@@ -260,10 +267,7 @@ public class Injector : ScriptableObject {
 	}
 
 #region DependencyInjection
-	public static void Inject (object target) {
-		instance._Inject(target);
-	}
-	public void _Inject (object target) {
+	private void _Inject (object target) {
 		string message = "";
 		Log("!!Injecting... " + target);
 		try 
@@ -425,7 +429,7 @@ public class Injector : ScriptableObject {
 		}
 	}
 #endregion			
-	void Log (string msg) {
+	private void Log (string msg) {
 		if(logger != null){
 			logger.Log(msg);
 		} else {
@@ -433,7 +437,7 @@ public class Injector : ScriptableObject {
 		}
 	}
 
-	void LogWarning (string msg) {
+	private void LogWarning (string msg) {
 		if(logger != null){
 			logger.LogWarning(msg);
 		} else {
@@ -441,7 +445,7 @@ public class Injector : ScriptableObject {
 		}
 	}
 
-	void LogError (string msg) {
+	private void LogError (string msg) {
 		if(logger != null){
 			logger.LogError(msg);
 		} else {
