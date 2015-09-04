@@ -14,4 +14,9 @@ public abstract class AbstractSelectionController : ScriptableObject, IScriptabl
 	public abstract void LateUpdate ();
 	public abstract void FixedUpdate ();
 	public abstract void OnDestroy ();
+	protected abstract void OnSelected (int index);
+	public void Selected (int index) {
+		OnSelected(index);
+		selection.SelectedIndex = index;
+	}
 }

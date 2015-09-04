@@ -4,7 +4,7 @@ using PowIoC;
 public class SelectionView : MonoBehaviour {
 	[Inject(false)]
 	ILogger logger;
-	[Inject(false)]
+	[Inject]
 	[SerializeField]
 	AbstractSelectionController controller;
 	public ParticleSystem particle;

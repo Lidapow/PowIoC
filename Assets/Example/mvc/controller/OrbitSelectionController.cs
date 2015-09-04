@@ -57,6 +57,10 @@ public class OrbitSelectionController : AbstractSelectionController {
 
 	}
 
+	protected override void OnSelected (int index) {
+
+	}
+
 	IEnumerator Job () {
 		if(sliding)
 			yield return 0;

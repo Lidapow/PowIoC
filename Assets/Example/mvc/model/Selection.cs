@@ -6,13 +6,13 @@ public class Selection : ScriptableObject {
 	public SelectedDel Selected { set; get; }
 	public int SelectedIndex { 
 		set {
-			if(value != selectedIndex) {
+			// if(value != selectedIndex) {
 				selectedIndexPrev = selectedIndex;
 				selectedIndex = value;
 				if(Selected != null) {
 					Selected();
 				}
-			}
+			// }
 		}
 		get {
 			return selectedIndex;
