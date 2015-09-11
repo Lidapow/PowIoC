@@ -34,8 +34,12 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 			newCube.transform.localScale = Vector3.one * 0.5f;
 			newCube.renderer.material.mainTexture = view.games[i];
 			newCube.AddComponent<SelectionItem>();
+
 			children[i] = newCube;
 			children[i].transform.parent = transform;
+
+			BoxCollider col = newCube.AddComponent<BoxCollider>();
+			col.size = new Vector3(7f, 0.1f, 7f);
 		}
 
 		Setup(movement);
