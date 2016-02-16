@@ -258,6 +258,15 @@ public class Injector : ScriptableObject {
 
 			//Inject into member
 			_Inject(returnSO);
+
+			//Try to call Setup to inform the object and its fields were ready.
+			try{
+				ISetup model = returnSO as ISetup;
+				if(model != null)
+					model.Setup();
+			} catch (Exception e) {
+				LogWarning(e.ToString());
+			}
 			return returnSO;
 		} else {
 			logger.LogErrorFormat("Binding map doesn't set corresponding name to {0}, scope {1}.", typeString, scope);

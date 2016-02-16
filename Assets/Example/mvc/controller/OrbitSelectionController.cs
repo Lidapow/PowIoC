@@ -14,8 +14,12 @@ public class OrbitSelectionController : AbstractSelectionController {
 
 	bool sliding;
 
-	public override void First () {
+	public override void Setup () {
 		logger.Context = this.GetType().ToString();
+	}
+
+	public override void First () {
+		logger.Log("Start");
 		factor = factor == 0f ? 5f : factor;
 		elements = elements == 0 ? view.games.Length : elements;
 		distance = distance == 0f ? 7f : distance;
@@ -27,16 +31,17 @@ public class OrbitSelectionController : AbstractSelectionController {
 			GameObject newCube = null;
 			newCube = (GameObject)Instantiate(particle.gameObject);
 			newCube.renderer.material.mainTexture = view.games[i];
+			newCube.AddComponent<SelectionItem>();
+			CapsuleCollider col = newCube.AddComponent<CapsuleCollider>();
+			col.radius = 1.2f;
+			col.height = 2.5f;
+			col.direction = 2;
 			ncTransform = newCube.transform;
 			newCube.name = "Item" + i;
 			newPosition = new Vector3(Mathf.Sin( i * unit ) * distance, 0, Mathf.Cos( i  * unit ) * distance);
 			ncTransform.parent = transform;
 			ncTransform.localPosition = newPosition;
 		}
-	}
-
-	public override void Second () {
-
 	}
 
 	public override void Update () {
@@ -58,7 +63,25 @@ public class OrbitSelectionController : AbstractSelectionController {
 	}
 
 	protected override void OnSelected (int index) {
+		logger.Log("Selected " + index);
+		monoBehaviour.StartCoroutine(DampTo(index));
+	}
 
+	IEnumerator DampTo (int index) {
+		float degree = Mathf.Abs(1 - (index + view.games.Length / 2 )) / (float)view.games.Length * 360f;
+		Vector3 angle = Vector3.up * transform.localEulerAngles.y;
+		float velocity = 0f, duration = 0.3f, time = 0f;
+
+		logger.LogFormat("d: {0}, a: {1}", degree, angle);
+		for(;;){
+			time += Time.deltaTime;
+			transform.localEulerAngles = angle;
+			angle.y = Mathf.SmoothDampAngle(angle.y, degree, ref velocity, duration);
+			yield return 0;
+			if(time >= duration)
+				break;
+		}
+		logger.Log("Done");
 	}
 
 	IEnumerator Job () {

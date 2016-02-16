@@ -17,8 +17,12 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 
 	private GameObject[] children;
 
-	public override void First () {
+	public override void Setup () {
 		logger.Context = this.GetType().ToString();
+	}
+
+	public override void First () {
+		logger.Log("Start");
 		movement = 0.5f;
 
 		factor = factor == 0f ? 50f : factor;
@@ -42,20 +46,16 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 			col.size = new Vector3(7f, 0.1f, 7f);
 		}
 
-		Setup(movement);
+		Adjust(movement);
 	}
 
-	void Setup (float offset) {
+	void Adjust (float offset) {
 		float evaluate = 0f;
 		for(int i = 0; i < children.Length; i++) {
 			evaluate = i/(float)elements + offset;
 			evaluate = Mathf.Repeat(evaluate, 1f);
 			children[i].SampleAnimation(view.coverFlowClip, evaluate);
 		}
-	}
-
-	public override void Second () {
-
 	}
 
 	public override void Update () {
@@ -93,7 +93,7 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 			movement = Mathf.Repeat(movement + direction, 1f);
 			yield return 0;
 			quit = Input.GetButtonUp("Fire1");
-			Setup(movement);
+			Adjust(movement);
 			if(quit){
 				velocity = Mathf.Abs(direction - Input.GetAxis("Mouse X") / factor);
 				velocity = Mathf.Min(velocity, 0.05f);
@@ -106,7 +106,7 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 		while(velocity > 0f){
 			movement = Mathf.Repeat(movement + (direction > 0 ? velocity : -velocity), 1f);
 			velocity -= Time.deltaTime / factor;
-			Setup(movement);
+			Adjust(movement);
 			if(Input.GetButtonDown("Fire1"))
 				break;
 			yield return 0;
@@ -140,7 +140,7 @@ public class CoverFlowSelectionController : AbstractSelectionController {
 
 		while(movement != destination){
 			movement = Mathf.SmoothDampAngle(movement * 360, destination * 360, ref velocity, 0.3f) / 360;
-			Setup(movement);
+			Adjust(movement);
 			yield return 0;
 			if(Mathf.Abs(movement - destination) < 0.001)
 				break;
