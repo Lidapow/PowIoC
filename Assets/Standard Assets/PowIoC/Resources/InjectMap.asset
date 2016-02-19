@@ -23,6 +23,10 @@ MonoBehaviour:
     to: SettingLoader
     scope: 
     note: 
+  - bind: PowIoC.IPlugin
+    to: ViewControllerMediator
+    scope: ViewCtrlMed
+    note: 
   - bind: LoggerFilters
     to: LoggerFilters
     scope: 
@@ -48,11 +52,11 @@ MonoBehaviour:
     scope: 
     note: 
   - bind: ExampleChangedFromXML1
-    to: Original
+    to: Changed1
     scope: 
     note: 
   - bind: ExampleChangedFromXML2
-    to: Original
+    to: Changed2
     scope: 
     note: 
   primitive:
@@ -90,10 +94,10 @@ MonoBehaviour:
     fieldValue: 5
     note: 
   - fieldPath: ExampleChangedFromXML1
-    fieldValue: 100
+    fieldValue: 9001
     note: 
   - fieldPath: ExampleChangedFromXML2
-    fieldValue: 100
+    fieldValue: 9002
     note: 
   primitiveArray:
   - fieldPath: LoggerFilters.messageFilters
@@ -104,15 +108,19 @@ MonoBehaviour:
     fieldValue:
     - Injector
     note: Ignore class
+  - fieldPath: Injector.plugins
+    fieldValue:
+    - ViewCtrlMed
+    note: 
   - fieldPath: ExampleChangedFromXML1
     fieldValue:
-    - Ond
-    - Two
-    - Three
+    - Alpha1
+    - Beta1
+    - Charlie1
     note: 
   - fieldPath: ExampleChangedFromXML2
     fieldValue:
-    - Ond
-    - Two
-    - Three
+    - Alpha2
+    - Beta2
+    - Charlie2
     note: 

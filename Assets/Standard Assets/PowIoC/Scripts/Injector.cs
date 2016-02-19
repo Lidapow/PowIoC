@@ -14,6 +14,9 @@ public class Injector : ScriptableObject {
 	private ILogger logger;
 	[Inject]
 	private ISettingLoader loader;
+	[Inject(false)]
+	private string[] plugins;
+	private IPlugin[] plugin;
 
 	private InjectMap injectMap;
 
@@ -278,6 +281,7 @@ public class Injector : ScriptableObject {
 #region DependencyInjection
 	private void _Inject (object target) {
 		string message = "";
+		ScriptableObject injectObject;
 		Log("!!Injecting... " + target);
 		try 
 		{
@@ -292,7 +296,21 @@ public class Injector : ScriptableObject {
 							continue;
 						} else {
 							Log(target.GetType() + ", FieldType: " + fInfo.FieldType + ", scope: " + aInfo.scope);
-							fInfo.SetValue(target, _Get(fInfo.FieldType, aInfo.scope));
+
+							//Retrieve object
+							injectObject = _Get(fInfo.FieldType, aInfo.scope);
+
+							if(plugin != null)
+							foreach(IPlugin _plugin in plugin) {
+								_plugin.PreInject(target, injectObject);
+							}
+
+							fInfo.SetValue(target, injectObject);
+
+							if(plugin != null)
+							foreach(IPlugin _plugin in plugin) {
+								_plugin.PostInject(target, injectObject);
+							}
 						}
 					} else {
 						if(fInfo.FieldType.IsPrimitive || fInfo.FieldType == typeof(string)) {
@@ -302,7 +320,21 @@ public class Injector : ScriptableObject {
 							InjectPrimitiveArray(fInfo, target);
 						}else {
 							if(fInfo.GetValue(target) == null){
-								fInfo.SetValue(target, _New(fInfo.FieldType));
+
+								//Retrieve object
+								injectObject = _New(fInfo.FieldType);
+
+								if(plugin != null)
+								foreach(IPlugin _plugin in plugin) {
+									_plugin.PreInject(target, injectObject);
+								}
+
+								fInfo.SetValue(target, injectObject);
+
+								if(plugin != null)
+								foreach(IPlugin _plugin in plugin) {
+									_plugin.PostInject(target, injectObject);
+								}
 							}
 						}
 					}
@@ -318,6 +350,12 @@ public class Injector : ScriptableObject {
 			////////////////////
 			if(target.GetType() == typeof(Injector)){
 				// Inject(logger);
+				if(plugins != null && plugins.Length > 0) {
+					plugin = new IPlugin[plugins.Length];
+					for(int index = 0; index < plugins.Length; index++){
+						plugin[index] = _Get(typeof(IPlugin), plugins[index]) as IPlugin;
+					}
+				}
 				logger.Context = this.GetType().ToString();
 			}
 

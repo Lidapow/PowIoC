@@ -1,7 +1,7 @@
 using UnityEngine;
 using PowIoC;
 
-public abstract class AbstractSelectionController : ScriptableObject, IScriptableBehaviour, ISetup {
+public abstract class AbstractSelectionController : ScriptableObject, IScriptableBehaviour, ISetup, IViewContainer {
 	[Inject]
 	protected Selection selection;
 	public ParticleSystem particle { set; get; }
@@ -20,4 +20,12 @@ public abstract class AbstractSelectionController : ScriptableObject, IScriptabl
 		OnSelected(index);
 		selection.SelectedIndex = index;
 	}
+
+	public void Register (IView view) { 
+		this.view = view as SelectionView; 
+	}
+	public void Deregister (IView view) { 
+		this.view = this.view == view ? null : this.view; 
+	}
+
 }
