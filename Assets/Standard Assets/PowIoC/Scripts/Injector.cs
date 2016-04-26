@@ -240,6 +240,17 @@ public class Injector : ScriptableObject {
 
 
 	private void Dispose () {
+		foreach(Type key in singletonInstances.Keys) {
+			foreach(string key2 in singletonInstances[key].Keys) {
+				if(Application.isPlaying) {
+					Destroy(singletonInstances[key][key2] as ScriptableObject);
+				} else {
+					DestroyImmediate(singletonInstances[key][key2] as ScriptableObject);
+				}
+			}
+			singletonInstances[key].Clear();
+		}
+		singletonInstances.Clear();
 		GC.SuppressFinalize(this);
 	}
 
